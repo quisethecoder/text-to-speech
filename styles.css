@@ -34,6 +34,7 @@ body{
 
 form .row{
     display: flex;
+    margin-bottom: 20px;
     flex-direction: column;
 }
 
@@ -42,11 +43,15 @@ form .row label{
     margin-bottom: 5px;
 }
 
-from :where(textarea, select, button){
+form :where(textarea, select, button){
     outline: none;
     width: 100%;
     border: none;
     border-radius: 5px;
+}
+
+select{
+    background: rgb(231, 178, 78);
 }
 
 form .row textarea{
@@ -54,7 +59,7 @@ form .row textarea{
     height: 110px;
     font-size: 15px;
     padding: 8px 10px;
-    border: 1px solid blueviolet;
+    border: 1px solid rgb(48, 81, 173);
 }
 
 form .row .outer{
@@ -63,9 +68,18 @@ form .row .outer{
     padding: 0 10px;
     align-items: center;
     border-radius: 5px;
-    border: 1px solid blueviolet;
+    border: 1px solid rgb(48, 81, 173);
 }
 
 form .row select{
     font-size: 14px;
+}
+
+form button{
+    height: 52px;
+    margin-top: 10px;
+    color: whitesmoke;
+    font-size: 17px;
+    cursor: pointer;
+    background: rgb(48, 81, 173);
 }
