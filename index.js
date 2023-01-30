@@ -5,6 +5,8 @@ speechBtn = document.querySelector("button");
 let synth = speechSynthesis,
 isSpeaking = true;
 
+voices();
+
 function voices(){
     for(let voice of synth.getVoices()){
         let selected = voice.name === "Google US English"? "selected" : "";
@@ -16,13 +18,13 @@ function voices(){
 synth.addEventListener("voiceschanged", voices);
 
 function textToSpeech(text){
-    let utternance = new SpeechSynthesisUtterance(text);
+    let utterance = new SpeechSynthesisUtterance(text);
     for(let voice of synth.getVoices()){
         if (voice.name === voiceList.value){
-            utternance.voice = voice;
+            utterance.voice = voice;
         }
     }
-    synth.speak(utternance);
+    synth.speak(utterance);
 }
 
 speechBtn.addEventListener("click", e =>{
@@ -30,7 +32,7 @@ speechBtn.addEventListener("click", e =>{
     if(textarea.value !== ""){
         if(!synth.speaking){
         textToSpeech(textarea.value)
-     }
+       }
         if(textarea.value.length > 80){
             if(isSpeaking){
                 synth.resume();
@@ -41,8 +43,17 @@ speechBtn.addEventListener("click", e =>{
                 isSpeaking = true;
                 speechBtn.innerText = "Resume Speech"
             }
+            setInterval(() =>{
+                if(!synth.speaking && !isSpeaking){
+                    isSpeaking = true;
+                    speechBtn.innerText = "Convert To Speech"
+                }
+            });
+        }else{
+            speechBtn.innerText = "Convert To Speech"
+        }
+       
         }
 
-    }
-});
+    });
 
