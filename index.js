@@ -2,9 +2,21 @@ const textarea = document.querySelector("textarea"),
 voiceList = document.querySelector("select"),
 speechBtn = document.querySelector("button");
 
+let synth = speechSynthesis;
+
+function voices(){
+    for(let voice of synth.getVoices()){
+        console.log(voice);
+        let option  = `<option value="${voice.name}">${voice.name}(${voice.lang})</option>`;
+        voiceList.insertAdjacentHTML("beforeend", option);
+    }
+}
+
+synth.addEventListener("voiceschanged", voices);
+
 function textToSpeech(text){
     let utternance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.speak(utternance);
+    synth.speak(utternance);
 }
 
 speechBtn.addEventListener("click", e =>{
@@ -12,5 +24,5 @@ speechBtn.addEventListener("click", e =>{
     if(textarea.value !== ""){
         textToSpeech(textarea.value)
     }
-})
+});
 
