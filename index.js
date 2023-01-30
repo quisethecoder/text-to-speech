@@ -2,7 +2,8 @@ const textarea = document.querySelector("textarea"),
 voiceList = document.querySelector("select"),
 speechBtn = document.querySelector("button");
 
-let synth = speechSynthesis;
+let synth = speechSynthesis,
+isSpeaking = true;
 
 function voices(){
     for(let voice of synth.getVoices()){
@@ -27,7 +28,21 @@ function textToSpeech(text){
 speechBtn.addEventListener("click", e =>{
     e.preventDefault();
     if(textarea.value !== ""){
+        if(!synth.speaking){
         textToSpeech(textarea.value)
+     }
+        if(textarea.value.length > 80){
+            if(isSpeaking){
+                synth.resume();
+                isSpeaking = false;
+                speechBtn.innerText = "Pause Speech"
+            }else{
+                synth.pause();
+                isSpeaking = true;
+                speechBtn.innerText = "Resume Speech"
+            }
+        }
+
     }
 });
 
