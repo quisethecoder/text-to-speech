@@ -16,7 +16,11 @@ synth.addEventListener("voiceschanged", voices);
 
 function textToSpeech(text){
     let utternance = new SpeechSynthesisUtterance(text);
-    for(let voice of synth.getVoices()){}
+    for(let voice of synth.getVoices()){
+        if (voice.name === voiceList.value){
+            utternance.voice = voice;
+        }
+    }
     synth.speak(utternance);
 }
 
