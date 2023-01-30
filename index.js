@@ -6,8 +6,8 @@ let synth = speechSynthesis;
 
 function voices(){
     for(let voice of synth.getVoices()){
-        console.log(voice);
-        let option  = `<option value="${voice.name}">${voice.name}(${voice.lang})</option>`;
+        let selected = voice.name === "Google US English"? "selected" : "";
+        let option  = `<option value="${voice.name}" ${selected}>${voice.name}(${voice.lang})</option>`;
         voiceList.insertAdjacentHTML("beforeend", option);
     }
 }
@@ -16,6 +16,7 @@ synth.addEventListener("voiceschanged", voices);
 
 function textToSpeech(text){
     let utternance = new SpeechSynthesisUtterance(text);
+    for(let voice of synth.getVoices()){}
     synth.speak(utternance);
 }
 
